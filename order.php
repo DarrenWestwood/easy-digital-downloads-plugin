@@ -1,4 +1,7 @@
-<?php get_header();?>
+<?php 
+get_header();
+edd_blockonomics_before_checkout();
+?>
 <div ng-app="shopping-cart-demo">
   <div ng-controller="CheckoutController">
     <div class="bnomics-order-container">
@@ -106,4 +109,7 @@
   </div>
 </div>
 
-<?php get_footer();?>
+<?php
+edd_blockonomics_after_checkout();
+get_footer();
+?>
