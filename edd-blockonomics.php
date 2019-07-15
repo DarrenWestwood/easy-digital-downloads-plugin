@@ -422,6 +422,26 @@ class EDD_Blockonomics
     return false;
   }
 
+  public function redirect_to_template($template){
+      $this->enqueue_stylesheets();
+      $this->enqueue_scripts();
+      if($template == 'order.php'){
+          $theme_template = 'blockonomics_checkout.php';
+      }else if ($template == 'track.php') {
+          $theme_template = 'blockonomics_altcoin.php';
+      }
+      if ( $overridden_template = locate_template( $theme_template ) ) {
+          // locate_template() returns path to file
+          // if either the child theme or the parent theme have overridden the template
+          load_template( $overridden_template );
+      } else {
+          // If neither the child nor parent theme have overridden the template,
+          // we load the template from the 'templates' sub-directory of the directory this file is in
+          load_template( plugin_dir_path(__FILE__).$template );
+      }
+      exit();
+  }
+
   public function listener()
   {
     $listener = sanitize_key($_GET['edd-listener']);
@@ -449,15 +469,9 @@ class EDD_Blockonomics
     $uuid = sanitize_text_field($_REQUEST["uuid"]);
     if ($address)
     {
-      $this->enqueue_stylesheets();
-      $this->enqueue_scripts();
-      include plugin_dir_path(__FILE__)."order.php";
-      exit();
+      $this->redirect_to_template("order.php");
     }else if ($uuid){
-        $this->enqueue_stylesheets();
-        $this->enqueue_scripts();
-        include plugin_dir_path(__FILE__)."track.php";
-        exit();
+      $this->redirect_to_template("track.php");
     }
 
     $address = sanitize_text_field($_REQUEST["finish_order"]);
