@@ -837,3 +837,9 @@ function edd_blockonomics_init()
 }
 add_action( 'plugins_loaded', 'edd_blockonomics_init' );
 
+function edd_blockonomics_before_checkout() {
+  do_action('edd_blockonomics_before_checkout');
+}
+function edd_blockonomics_after_checkout() {
+  do_action('edd_blockonomics_after_checkout');
+}

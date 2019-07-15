@@ -1,4 +1,7 @@
-<?php get_header(); ?>
+<?php
+get_header();
+edd_blockonomics_before_checkout();
+?>
 <div ng-app="shopping-cart-demo">
   <div ng-controller="AltcoinController">
     <div class="bnomics-order-container">
@@ -136,4 +139,7 @@
     var get_uuid="<?php if (isset($_REQUEST['uuid'])) { echo $_REQUEST['uuid']; } ?>";
   </script>
 </div>
-<?php get_footer(); ?>
+<?php
+edd_blockonomics_after_checkout();
+get_footer();
+?>
